@@ -66,7 +66,18 @@ set foldcolumn=0
 
 " Background and color schmeme
 set background=dark
-colorscheme peaksea
+colorscheme slate
+
+" Disable automatic code folding
+function! JavaScriptFold()
+endfunction
+
+function! CoffeeScriptFold()
+endfunction
+
+" JSX Highlighting
+let g:vim_jsx_pretty_highlight_close_tag = 1
+let g:vim_jsx_pretty_colorful_config = 1
 
 " Automatically install vim plug https://github.com/junegunn/vim-plug/wiki/tips#automatic-installation
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
@@ -89,17 +100,11 @@ Plug 'ervandew/supertab'
 " Syntax checking
 " Plug 'vim-syntastic/syntastic'
 
-" File Structure
-" Plug 'scrooloose/nerdtree'
-
 " Python indentation (especially the opening braces on new line)
-" Plug 'vim-scripts/indentpython.vim'
+Plug 'vim-scripts/indentpython.vim'
 
 " Python highlighting
-" Plug 'vim-python/python-syntax'
-
-" Most Recently Used Files :MRU, t to open in new tab, o to open in new window
-" Plug 'vim-scripts/mru.vim'
+Plug 'vim-python/python-syntax'
 
 " PHP-Twig
 " Plug 'lumiliet/vim-twig'
@@ -118,25 +123,15 @@ Plug 'ervandew/supertab'
 
 " Javascript
 " Plug 'pangloss/vim-javascript'
-" Plug 'MaxMEllon/vim-jsx-pretty'
+Plug 'MaxMEllon/vim-jsx-pretty'
 
 " Tailwind
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Plug 'iamcco/coc-tailwindcss'
-
-" Surrouding words/sentences cs"'
-" Plug 'tpope/vim-surround'
-
-" Status Bar
-" Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" CocInstall coc-tailwindcss coc-json coc-tsserver
 
 " Fuzzy Finder
 Plug 'vim-scripts/L9'
 Plug 'vim-scripts/FuzzyFinder'
-
-" Tabular
-" Plug 'godlygeek/tabular'
 
 " Initialize plugin system
 call plug#end()
