@@ -66,7 +66,7 @@ set foldcolumn=0
 
 " Background and color schmeme
 set background=dark
-colorscheme slate
+colorscheme dracula "slate
 
 " Disable automatic code folding
 function! JavaScriptFold()
@@ -135,3 +135,9 @@ Plug 'vim-scripts/FuzzyFinder'
 
 " Initialize plugin system
 call plug#end()
+
+if &term =~ '256color'
+  " disable Background Color Erase (BCE) so that color schemes
+  " render properly when inside 256-color GNU screen.
+  set t_ut=
+endif
