@@ -1,3 +1,56 @@
+" Specify a directory for plugins
+" - For Neovim: stdpath('data') . '/plugged'
+" - Avoid using standard Vim directory names like 'plugin'
+call plug#begin('~/.vim_runtime/my_plugins/plugged')
+
+" The ultimate tab completion
+Plug 'ervandew/supertab'
+
+" Pyenv with jedi-vim
+" Plug 'lambdalisue/vim-pyenv'
+
+" Syntax checking
+" Plug 'vim-syntastic/syntastic'
+
+" Python indentation (especially the opening braces on new line)
+Plug 'vim-scripts/indentpython.vim'
+
+" Python highlighting
+Plug 'vim-python/python-syntax'
+
+" PHP-Twig
+" Plug 'lumiliet/vim-twig'
+
+" PHP
+" Plug 'StanAngeloff/php.vim'
+
+" Blade
+" Plug 'jwalton512/vim-blade'
+
+" Markdown
+" Plug 'tpope/vim-markdown'
+
+" XML Edit
+" Plug 'sukima/xmledit'
+
+" Javascript
+" Plug 'pangloss/vim-javascript'
+Plug 'MaxMEllon/vim-jsx-pretty'
+
+" Tailwind
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" CocInstall coc-tailwindcss coc-json coc-tsserver
+
+" Fuzzy Finder
+Plug 'vim-scripts/L9'
+Plug 'vim-scripts/FuzzyFinder'
+
+" Python formatter
+Plug 'psf/black', { 'branch': 'stable'  }
+
+" Initialize plugin system
+call plug#end()
+
 " Scrolling
 set mouse=n
 set scrolloff=7
@@ -19,6 +72,8 @@ imap <F5> <Esc>:w<CR>
 
 " Toggle NERDTree
 map <C-X> :NERDTreeToggle<CR>
+" Open files in new tab
+let NERDTreeCustomOpenArgs={'file':{'where': 't'}}
 
 " Sets how many lines of history VIM has to remember
 set history=5000
@@ -89,58 +144,15 @@ endif
 " Tab completion scrolling for supertab
 let g:SuperTabDefaultCompletionType = "<c-n>"
 
-" Specify a directory for plugins
-" - For Neovim: stdpath('data') . '/plugged'
-" - Avoid using standard Vim directory names like 'plugin'
-call plug#begin('~/.vim_runtime/my_plugins/plugged')
-
-" The ultimate tab completion
-Plug 'ervandew/supertab'
-
-" Pyenv with jedi-vim
-" Plug 'lambdalisue/vim-pyenv'
-
-" Syntax checking
-" Plug 'vim-syntastic/syntastic'
-
-" Python indentation (especially the opening braces on new line)
-Plug 'vim-scripts/indentpython.vim'
-
-" Python highlighting
-Plug 'vim-python/python-syntax'
-
-" PHP-Twig
-" Plug 'lumiliet/vim-twig'
-
-" PHP
-" Plug 'StanAngeloff/php.vim'
-
-" Blade
-" Plug 'jwalton512/vim-blade'
-
-" Markdown
-" Plug 'tpope/vim-markdown'
-
-" XML Edit
-" Plug 'sukima/xmledit'
-
-" Javascript
-" Plug 'pangloss/vim-javascript'
-Plug 'MaxMEllon/vim-jsx-pretty'
-
-" Tailwind
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" CocInstall coc-tailwindcss coc-json coc-tsserver
-
-" Fuzzy Finder
-Plug 'vim-scripts/L9'
-Plug 'vim-scripts/FuzzyFinder'
-
-" Initialize plugin system
-call plug#end()
-
 if &term =~ '256color'
   " disable Background Color Erase (BCE) so that color schemes
   " render properly when inside 256-color GNU screen.
   set t_ut=
 endif
+
+" Python path
+let g:python3_host_prog = expand('~/.pyenv/shims/python')
+
+" psf/black configuration
+let g:black_linelength = 200
+" let g:black_virtualenv = expand('~/.pyenv/versions/3.9.6/bin/black')
