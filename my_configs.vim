@@ -1,3 +1,10 @@
+" Automatically install vim plug https://github.com/junegunn/vim-plug/wiki/tips#automatic-installation
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 " Specify a directory for plugins
 " - For Neovim: stdpath('data') . '/plugged'
 " - Avoid using standard Vim directory names like 'plugin'
@@ -10,7 +17,7 @@ Plug 'ervandew/supertab'
 " Plug 'lambdalisue/vim-pyenv'
 
 " Syntax checking
-" Plug 'vim-syntastic/syntastic'
+Plug 'vim-syntastic/syntastic'
 
 " Python indentation (especially the opening braces on new line)
 Plug 'vim-scripts/indentpython.vim'
@@ -19,19 +26,19 @@ Plug 'vim-scripts/indentpython.vim'
 Plug 'vim-python/python-syntax'
 
 " PHP-Twig
-" Plug 'lumiliet/vim-twig'
+Plug 'lumiliet/vim-twig'
 
 " PHP
-" Plug 'StanAngeloff/php.vim'
+Plug 'StanAngeloff/php.vim'
 
 " Blade
-" Plug 'jwalton512/vim-blade'
+Plug 'jwalton512/vim-blade'
 
 " Markdown
-" Plug 'tpope/vim-markdown'
+Plug 'tpope/vim-markdown'
 
 " XML Edit
-" Plug 'sukima/xmledit'
+Plug 'sukima/xmledit'
 
 " Javascript
 " Plug 'pangloss/vim-javascript'
@@ -99,6 +106,11 @@ call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
 call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
 call NERDTreeHighlightFile('py', 'white', 'none', '#ff00ff', '#151515')
 
+" Set filetypes
+augroup filetypedetect
+    au BufRead,BufNewFile *.module set filetype=php
+augroup END
+
 " Fuzzy Finder
 map <C-T> :tabe<CR>:FufFile<CR>
 
@@ -106,7 +118,7 @@ map <C-T> :tabe<CR>:FufFile<CR>
 set noendofline
 
 " Tabs
-set expandtab 
+set expandtab
 autocmd FileType javascript set tabstop=2 | set shiftwidth=2
 " Indent of 1 tab with size of 4 spaces
 set tabstop=4
@@ -134,13 +146,6 @@ endfunction
 let g:vim_jsx_pretty_highlight_close_tag = 1
 let g:vim_jsx_pretty_colorful_config = 1
 
-" Automatically install vim plug https://github.com/junegunn/vim-plug/wiki/tips#automatic-installation
-let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
-if empty(glob(data_dir . '/autoload/plug.vim'))
-  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
-
 " Tab completion scrolling for supertab
 let g:SuperTabDefaultCompletionType = "<c-n>"
 
@@ -156,3 +161,14 @@ let g:python3_host_prog = expand('~/.pyenv/shims/python')
 " psf/black configuration
 let g:black_linelength = 200
 " let g:black_virtualenv = expand('~/.pyenv/versions/3.9.6/bin/black')
+
+" PHP Syntax
+function! PhpSyntaxOverride()
+  hi! def link phpDocTags  phpDefine
+  hi! def link phpDocParam phpType
+endfunction
+
+augroup phpSyntaxOverride
+  autocmd!
+  autocmd FileType php call PhpSyntaxOverride()
+augroup END
